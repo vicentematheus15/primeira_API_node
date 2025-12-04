@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/vicentematheus15/primeira_API_node/issues"
   },
-  "homepage": "https://github.com/vicentematheus15/primeira_API_node#readme"
+  "homepage": "https://github.com/vicentematheus15/primeira_API_node#readme",
+  "dependencies": {
+    "fastify": "^5.6.2"
+  }
 }
