@@ -1,7 +1,9 @@
-const fastify = require('fastify')
-const crypto = require('crypto')
+import fastify from 'fastify'
+import crypto from 'node:crypto'
 
-const server = fastify()
+const server = fastify({
+    logger: true
+})
 
 const courses = [ 
     {id: '1', title: 'curso de Node.js'},
@@ -16,7 +18,12 @@ server.get('/courses', () => {
 })
 
 server.get('/courses/:id', (request, reply) => {
-    const courseId = request.params.id
+    type Params = {
+        id: string
+    }
+    
+    const params = request.params as Params
+    const courseId = params.id
 
     const course = courses.find(course => course.id === courseId)
 
@@ -28,8 +35,14 @@ server.get('/courses/:id', (request, reply) => {
 })
 
 server.post('/courses', (request, reply) => {
+    type Body = {
+        title: string
+    }
+    
     const courseId = crypto.randomUUID()
-    const courseTitle = request.body.title
+
+    const body = request.body as Body
+    const courseTitle = body.title
 
     if(!courseTitle){
         return reply.status(400).send({message: 'Título obrigatório'})
